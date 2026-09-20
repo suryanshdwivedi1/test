@@ -38,3 +38,24 @@ def test_mask_email_basic():
 
     # Assert
     assert result == "pr***@example.com"
+
+def test_normalize_phone_valid():
+  """Test phone normalization with dashes."""
+  assert normalize_phone("555-123-4567") == "5551234567"
+
+
+def test_normalize_phone_invalid():
+  """Test that normalizing an invalid phone raises ValueError."""
+  with pytest.raises(ValueError):
+    normalize_phone("123-45")
+
+
+def test_mask_email_short_local():
+  """Test masking an email with two or fewer local characters."""
+  assert mask_email("ab@example.com") == "a*@example.com"
+
+
+def test_mask_email_invalid():
+  """Test that masking an invalid email raises ValueError."""
+  with pytest.raises(ValueError):
+    mask_email("invalid-email")
